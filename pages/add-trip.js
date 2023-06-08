@@ -2,7 +2,8 @@ import { API } from 'aws-amplify'
 import { useState } from 'react'
 import { Navbar } from '../components/Navbar'
 import { TripForm } from '../components/TripForm'
-import { createTrip } from '../src/graphql/mutations'
+import { createTrip } from '../graphql/operations/mutations'
+import { withAuthenticator } from '@aws-amplify/ui-react'
 
 const AddTripPage = () => {
 	const [currImgKey, setCurrImgKey] = useState()
@@ -25,7 +26,7 @@ const AddTripPage = () => {
 				input: {
 					title,
 					description,
-					imgID: currImgKey,
+					imgKey: currImgKey,
 				},
 			},
 		})
@@ -41,4 +42,7 @@ const AddTripPage = () => {
 	)
 }
 
-export default AddTripPage
+export default withAuthenticator(AddTripPage, {
+	signUpAttributes: ['email'],
+	hideSignUp: true,
+})

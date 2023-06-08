@@ -1,9 +1,4 @@
-import '../styles/globals.css'
-import { Amplify } from 'aws-amplify'
-import { AmplifyProvider } from '@aws-amplify/ui-react'
-import '@aws-amplify/ui-react/styles.css'
-
-const config = {
+export const config = {
 	aws_project_region: process.env.NEXT_PUBLIC_region,
 	Auth: {
 		region: process.env.NEXT_PUBLIC_region,
@@ -20,14 +15,4 @@ const config = {
 	aws_appsync_graphqlEndpoint: process.env.NEXT_PUBLIC_appSyncURL,
 	aws_appsync_region: process.env.NEXT_PUBLIC_region,
 	aws_appsync_authenticationType: 'AMAZON_COGNITO_USER_POOLS',
-}
-
-Amplify.configure(config)
-
-export default function App({ Component, pageProps }) {
-	return (
-		<AmplifyProvider>
-			<Component {...pageProps} />
-		</AmplifyProvider>
-	)
 }

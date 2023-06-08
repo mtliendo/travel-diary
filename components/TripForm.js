@@ -7,7 +7,7 @@ description: String
 imgID: String
 }
 */
-import { FileUploader } from '@aws-amplify/ui-react'
+import { StorageManager } from '@aws-amplify/ui-react-storage'
 
 export const TripForm = ({ handleFormSubmit, handleFileUploadSuccess }) => {
 	return (
@@ -16,12 +16,12 @@ export const TripForm = ({ handleFormSubmit, handleFileUploadSuccess }) => {
 			className="form-control grid grid-cols-2 gap-4 max-w-xl m-auto mt-10"
 		>
 			<div className="col-span-2">
-				<FileUploader
+				<StorageManager
 					accessLevel="public"
 					acceptedFileTypes={['image/*']}
 					maxFileCount={1}
-					shouldAutoProceed
-					onSuccess={({ key }) => handleFileUploadSuccess(key)}
+					showThumbnails
+					onUploadSuccess={({ key }) => handleFileUploadSuccess(key)}
 				/>
 			</div>
 			<div className="col-span-2">
@@ -55,7 +55,7 @@ export const TripForm = ({ handleFormSubmit, handleFileUploadSuccess }) => {
 					type="submit"
 					className="btn btn-secondary py-3 px-6 w-full sm:w-32"
 				>
-					Button
+					Create
 				</button>
 			</div>
 		</form>

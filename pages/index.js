@@ -5,7 +5,7 @@ import { CardList } from '../components/CardList'
 import { Footer } from '../components/Footer'
 import { Hero } from '../components/Hero'
 import { Navbar } from '../components/Navbar'
-import { listTrips } from '../src/graphql/queries'
+import { listTrips } from '../graphql/operations/queries'
 
 function Home({ signOut = () => {} }) {
 	const [tripData, setTripData] = useState([])
@@ -14,11 +14,11 @@ function Home({ signOut = () => {} }) {
 			const updatedTrips = []
 			const trips = await API.graphql({ query: listTrips })
 
-			const imgIDs = trips.data.listTrips.items.map((trip) => trip.imgID)
-			const imgPromises = imgIDs.map((imgID) => Storage.get(imgID))
+			const imgKeys = trips.data.listTrips.map((trip) => trip.imgKey)
+			const imgPromises = imgKeys.map((imgKey) => Storage.get(imgKey))
 			const images = await Promise.all(imgPromises)
-			trips.data.listTrips.items.forEach((trip, index) => {
-				const updatedTrip = { ...trip, imgID: images[index] }
+			trips.data.listTrips.forEach((trip, index) => {
+				const updatedTrip = { ...trip, imgKey: images[index] }
 				updatedTrips.push(updatedTrip)
 			})
 
@@ -39,4 +39,7 @@ function Home({ signOut = () => {} }) {
 	)
 }
 
-export default withAuthenticator(Home, { hideSignUp: true })
+export default withAuthenticator(Home, {
+	signUpAttributes: ['email'],
+	hideSignUp: true,
+})

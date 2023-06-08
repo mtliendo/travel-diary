@@ -11,7 +11,7 @@ export const Navbar = ({ signOut }) => {
 			<div className="flex-none">
 				<ul className="menu menu-horizontal px-1">
 					<li>
-						<Link href={'/add-trip'}>Add Trip</Link>
+						<Link href={'/add-trip'}>add trip</Link>
 					</li>
 					{signOut && (
 						<li>
